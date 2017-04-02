@@ -50,7 +50,7 @@
             this.dataGridViewResult.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewResult.Name = "dataGridViewResult";
             this.dataGridViewResult.RowTemplate.Height = 24;
-            this.dataGridViewResult.Size = new System.Drawing.Size(856, 350);
+            this.dataGridViewResult.Size = new System.Drawing.Size(667, 270);
             this.dataGridViewResult.TabIndex = 0;
             // 
             // Name
@@ -92,9 +92,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(856, 350);
+            this.ClientSize = new System.Drawing.Size(667, 270);
             this.Controls.Add(this.dataGridViewResult);
-            this.Text = "SearchResult";
+            this.Text = "Резултат";
             this.Load += new System.EventHandler(this.SearchResult_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResult)).EndInit();
             this.ResumeLayout(false);

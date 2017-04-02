@@ -10,17 +10,18 @@ using System.Windows.Forms;
 
 namespace MyLibrary {
     public partial class SearchResult : Form {
-        public SearchResult() {
-            InitializeComponent();
+        private List<Book> books = new List<Book>();
 
+        internal SearchResult(List<Book> books) {
+            InitializeComponent();
+            this.books = books;
         }
 
         private void SearchResult_Load(object sender, EventArgs e) {
-            MyLibraryDAO<Book> dao = new BookDAOImpl();
-            List<Book> books = dao.searchAll();
-
+            BookDAO dao = new BookDAOImpl();
+            
             foreach (Book book in books) {
-                dataGridViewResult.Rows.Add(book.getBookName());
+                dataGridViewResult.Rows.Add(book.getBookName(), book.getYear(), book.getTimeRead(), book.getAuthorName(), book.getGenre());
             }
         }
     }

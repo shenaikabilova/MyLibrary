@@ -133,7 +133,7 @@
             this.bBookAdd.Name = "bBookAdd";
             this.bBookAdd.Size = new System.Drawing.Size(80, 29);
             this.bBookAdd.TabIndex = 13;
-            this.bBookAdd.Text = "Add";
+            this.bBookAdd.Text = "Добави";
             this.bBookAdd.UseVisualStyleBackColor = true;
             this.bBookAdd.MouseClick += new System.Windows.Forms.MouseEventHandler(this.bookAdd_click);
             // 

@@ -8,9 +8,7 @@ namespace MyLibrary{
     interface MyLibraryDAO<E> {
         void add(E addNewObj);
         void update(E updateObj);
-        void delete(int id);
-        E searchByID(int id);
+        void delete(String id);
         List<E> searchAll();
-        List<E> searchAllByID(int id);
     }
 }

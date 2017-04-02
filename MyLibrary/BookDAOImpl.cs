@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
 namespace MyLibrary {
-    class BookDAOImpl : MyLibraryDAO<Book> {
+    class BookDAOImpl : BookDAO {
         private const String conn = "server=localhost;user=root;database=MyLibrary;port=3306;password=123456;";
         private String query;
 
@@ -53,13 +53,13 @@ namespace MyLibrary {
             connection.Close();
         }
 
-        public void delete(int id) {
+        public void delete(String id) {
             MySqlConnection connection = new MySqlConnection(conn);
             try
             {
                 connection.Open();
 
-                query = "DELETE Book WHERE authorID= " + id;
+                query = "DELETE Book WHERE authorID= '" + id + "'";
                 MySqlCommand command = new MySqlCommand(query, connection);
 
                 command.ExecuteNonQuery();
@@ -72,31 +72,6 @@ namespace MyLibrary {
             connection.Close();
         }
 
-        public Book searchByID(int id) {
-            Book book = null; ;
-            MySqlConnection connection = new MySqlConnection(conn);
-
-            try {
-                connection.Open();
-
-                query = "SELECT bookName, bookYear, bookTimeRead FROM book WHERE bookID= " + id;
-                MySqlCommand command = new MySqlCommand(query, connection);
-                MySqlDataReader reader = command.ExecuteReader();
-
-                if (reader.Read()) {
-                    String bookName = reader["bookName"].ToString();
-                    int bookYear = Convert.ToInt32(reader["bookYear"]);
-                    int bookTimeRead = Convert.ToInt32(reader["bookTimeRead"]);
-                }
-
-            }
-            catch (Exception e) {
-                Console.WriteLine(e.ToString());
-            }
-
-            return book;
-        }
-
         public List<Book> searchAll() {
             List<Book> books = null;
             MySqlConnection connection = new MySqlConnection(conn);
@@ -104,24 +79,29 @@ namespace MyLibrary {
             try
             {
                 connection.Open();
-
-                query = "SELECT book.bookID, book.bookName, book.bookYear, book.bookTimeRead, " +
-                        "CONCAT(author.authorName, ' ', author.authorFamily), " +  
-                        "genre.genreName FROM book" +
-                        "join author on book.fkAuthor = author.authorID" +
+                
+                query = "SELECT book.bookID, book.bookName, book.bookYear, book.bookTimeRead, book.fkAuthor, book.fkGenre, " +
+                        "CONCAT(author.authorName, ' ', author.authorFamily) as author, " +  
+                        "genre.genreName as genre FROM book " +
+                        "join author on book.fkAuthor = author.authorID " +
                         "join genre on book.fkGenre = genre.genreID";
+
                 MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataReader reader = command.ExecuteReader();
+
+                books = new List<Book>();
 
                 while (reader.Read())
                 {
                     Book book = new Book();
-                    book.setBookID(reader["bookID"].ToString());
+                    book.setBookID(Convert.ToInt32(reader["bookID"]));
                     book.setBookName(reader["bookName"].ToString());
                     book.setYear(Convert.ToInt32(reader["bookYear"]));
                     book.setTimeRead(Convert.ToInt32(reader["bookTimeRead"]));
-                    book.setAuthor(reader["fkAuthor"].ToString());
-                    book.setGenreID(reader["fkGenre"].ToString());
+                    book.setAuthorID(Convert.ToInt32(reader["fkAuthor"]));
+                    book.setAuthorName(reader["author"].ToString());
+                    book.setGenreID(Convert.ToInt32(reader["fkGenre"]));
+                    book.setGenre(reader["genre"].ToString());
 
                     books.Add(book);
                 }
@@ -134,8 +114,86 @@ namespace MyLibrary {
             return books;
         }
 
-        public List<Book> searchAllByID(int id) {
-            return null;
+        public List<Book> searchByAuthorID(int id) {
+            List<Book> books = null;
+            MySqlConnection connection = new MySqlConnection(conn);
+
+            try {
+                connection.Open();
+
+                query = "SELECT  mylibrary.book.bookID,  mylibrary.book.bookName,  mylibrary.book.bookYear, " +
+                        "mylibrary.book.bookTimeRead, fkAuthor, fkGenre, " +
+                        "CONCAT(mylibrary.author.authorName, ' ', mylibrary.author.authorFamily) as author, " +
+                        "mylibrary.genre.genreName as genre FROM mylibrary.book " +
+                        "join mylibrary.author on mylibrary.book.fkAuthor = author.authorID " +
+                        "join mylibrary.genre on mylibrary.book.fkGenre = genre.genreID " +
+                        "WHERE mylibrary.author.authorID =  " + id;
+
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataReader reader = command.ExecuteReader();
+                books = new List<Book>();
+
+                while (reader.Read()) {
+                    Book book = new Book();
+                    book.setBookID(Convert.ToInt32(reader["bookID"]));
+                    book.setBookName(reader["bookName"].ToString());
+                    book.setYear(Convert.ToInt32(reader["bookYear"]));
+                    book.setTimeRead(Convert.ToInt32(reader["bookTimeRead"]));
+                    book.setAuthorID(Convert.ToInt32(reader["fkAuthor"]));
+                    book.setAuthorName(reader["author"].ToString());
+                    book.setGenreID(Convert.ToInt32(reader["fkGenre"]));
+                    book.setGenre(reader["genre"].ToString());
+
+                    books.Add(book);
+                }
+
+            } catch (Exception e) {
+                Console.WriteLine(e.ToString());
+            }
+
+            return books;
+        }
+
+        public List<Book> searchByGenreID(int id) {
+            List<Book> books = null;
+            MySqlConnection connection = new MySqlConnection(conn);
+
+            try {
+                connection.Open();
+
+                query = "SELECT mylibrary.book.bookID,  mylibrary.book.bookName,  mylibrary.book.bookYear, " +
+                        "mylibrary.book.bookTimeRead, fkAuthor, fkGenre, " +
+                        "CONCAT(mylibrary.author.authorName, ' ', mylibrary.author.authorFamily) as author, " +
+                        "mylibrary.genre.genreName as genre FROM mylibrary.book " +
+                        "join mylibrary.author on mylibrary.book.fkAuthor = author.authorID " +
+                        "join mylibrary.genre on mylibrary.book.fkGenre = genre.genreID " +
+                        "WHERE mylibrary.genre.genreID =  " + id;
+
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataReader reader = command.ExecuteReader();
+                books = new List<Book>();
+
+                while (reader.Read()) {
+                    Book book = new Book();
+                    book.setBookID(Convert.ToInt32(reader["bookID"]));
+                    book.setBookName(reader["bookName"].ToString());
+                    book.setYear(Convert.ToInt32(reader["bookYear"]));
+                    book.setTimeRead(Convert.ToInt32(reader["bookTimeRead"]));
+                    book.setAuthorID(Convert.ToInt32(reader["fkAuthor"]));
+                    book.setAuthorName(reader["author"].ToString());
+                    book.setGenreID(Convert.ToInt32(reader["fkGenre"]));
+                    book.setGenre(reader["genre"].ToString());
+
+                    books.Add(book);
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+            return books;
         }
     }
 }

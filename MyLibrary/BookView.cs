@@ -49,7 +49,7 @@ namespace MyLibrary {
         }
 
         private void bookAdd_click(object sender, MouseEventArgs e) {
-            MyLibraryDAO<Book> addBook = new BookDAOImpl();
+            BookDAO addBook = new BookDAOImpl();
             Book book = new Book();
             book.setBookName(tbBookName.Text);
             book.setYear(Int32.Parse(tbBookYear.Text));
@@ -64,7 +64,6 @@ namespace MyLibrary {
             foreach (Genre g in genres) {
                 if(cbGenre.Text.Equals(g.getGenre())) {
                     book.setGenreID(g.getGenreID());
-                   // book.setGenreID(Convert.ToInt32(g.getGenreID()));
                 }
             }
 
@@ -72,14 +71,9 @@ namespace MyLibrary {
         }
 
         private void bookExit_click(object sender, MouseEventArgs e) {
-            String id = cbBookAuthor.Text;
-
-            foreach (Author s in authors) {
-                if (cbBookAuthor.Text.Equals(s.getAuthorName() + " " + s.getAuthorFamily())) {
-                    MessageBox.Show("", s.getAuthorID().ToString());
-                }
-            }
-
+            this.Hide();
+            Library f = new Library();
+            f.Show();
         }
 
     }

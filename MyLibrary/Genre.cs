@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace MyLibrary {
     class Genre {
-        private String genreID;
+        private int genreID;
         private String genre;
 
-        public String getGenreID() {
+        public int getGenreID() {
             return genreID;
         }
 
-        public void setGenreID(String genreID) {
+        public void setGenreID(int genreID) {
             this.genreID = genreID;
         }
 

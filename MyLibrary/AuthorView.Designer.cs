@@ -41,18 +41,18 @@
             this.lAuthorName.AutoSize = true;
             this.lAuthorName.Location = new System.Drawing.Point(13, 41);
             this.lAuthorName.Name = "lAuthorName";
-            this.lAuthorName.Size = new System.Drawing.Size(45, 17);
+            this.lAuthorName.Size = new System.Drawing.Size(35, 17);
             this.lAuthorName.TabIndex = 0;
-            this.lAuthorName.Text = "Name";
+            this.lAuthorName.Text = "Име";
             // 
             // lAuthorFamily
             // 
             this.lAuthorFamily.AutoSize = true;
             this.lAuthorFamily.Location = new System.Drawing.Point(13, 78);
             this.lAuthorFamily.Name = "lAuthorFamily";
-            this.lAuthorFamily.Size = new System.Drawing.Size(48, 17);
+            this.lAuthorFamily.Size = new System.Drawing.Size(70, 17);
             this.lAuthorFamily.TabIndex = 1;
-            this.lAuthorFamily.Text = "Family";
+            this.lAuthorFamily.Text = "Фамилия";
             // 
             // tbAuthorName
             // 
@@ -74,7 +74,7 @@
             this.bAdd.Name = "bAdd";
             this.bAdd.Size = new System.Drawing.Size(75, 28);
             this.bAdd.TabIndex = 4;
-            this.bAdd.Text = "Add";
+            this.bAdd.Text = "Добави";
             this.bAdd.UseVisualStyleBackColor = true;
             this.bAdd.MouseClick += new System.Windows.Forms.MouseEventHandler(this.bAuthorAdd);
             // 
@@ -84,7 +84,7 @@
             this.bExit.Name = "bExit";
             this.bExit.Size = new System.Drawing.Size(74, 28);
             this.bExit.TabIndex = 5;
-            this.bExit.Text = "Exit";
+            this.bExit.Text = "Изход";
             this.bExit.UseVisualStyleBackColor = true;
             this.bExit.MouseClick += new System.Windows.Forms.MouseEventHandler(this.exit_click);
             // 
@@ -98,6 +98,7 @@
             this.Controls.Add(this.lAuthorFamily);
             this.Controls.Add(this.lAuthorName);
             this.Name = "AuthorView";
+            this.Text = "Добави автор";
             this.ResumeLayout(false);
             this.PerformLayout();
 

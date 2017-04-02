@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace MyLibrary {
     class Book {
-        private String bookID;
+        private int bookID;
         private String bookName;
         private int year;
         private int timeRead;
-        private Author author;
-        private Genre genre;
-//        private int authorID;
-//        private int genreID;
+        private int authorID;
+        private int genreID;
+        private String authorName;
+        private String genre;
 
-        public String getBookID() {
+        public int getBookID() {
             return bookID;
         }
 
-        public void setBookID(String bookID) {
+        public void setBookID(int bookID) {
             this.bookID = bookID;
         }
 
@@ -47,23 +47,7 @@ namespace MyLibrary {
             this.timeRead = timeRead;
         }
 
-        public Author getAuthorID() {
-            return author;
-        }
-
-        public void setAuthor (Author author) {
-            this.author = author;
-        }
-
-        public Genre getGenreID() {
-            return genre;
-        }
-
-        public void setGenreID(Genre genre) {
-            this.genre = genre;
-        }
-
-/*        public void setAuthorID(int authorID){
+        public void setAuthorID(int authorID){
             this.authorID = authorID;
         }
 
@@ -71,12 +55,28 @@ namespace MyLibrary {
             this.genreID = genreID;
         }
 
-        public int getAuthor() {
-            return this.authorID;
+        public int getAuthorID() {
+            return authorID;
         }
 
-        public int getGenre() {
-            return this.genreID;
-        }*/
+        public int getGenreID() {
+            return genreID;
+        }
+
+        public String getAuthorName() {
+            return authorName;
+        }
+
+        public void setAuthorName(String authorName) {
+            this.authorName = authorName;
+        }
+
+        public String getGenre() {
+            return genre;
+        }
+
+        public void setGenre(String genre) {
+            this.genre = genre;
+        }
     }
 }

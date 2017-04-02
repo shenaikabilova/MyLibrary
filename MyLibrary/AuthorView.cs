@@ -24,7 +24,7 @@ namespace MyLibrary {
 
         private void exit_click(object sender, MouseEventArgs e) {
             this.Hide();
-            Form1 f = new Form1();
+            Library f = new Library();
             f.Show();
         }
     }

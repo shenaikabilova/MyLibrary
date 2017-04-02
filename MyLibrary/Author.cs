@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace MyLibrary {
     class Author {
-        private String authorID;
+        private int authorID;
         private String authorName;
         private String authorFamily;
 
-        public String getAuthorID() {
+        public int getAuthorID() {
             return authorID;
         }
 
-        public void setAuthorID(String authorID) {
+        public void setAuthorID(int authorID) {
             this.authorID = authorID;
         }
 

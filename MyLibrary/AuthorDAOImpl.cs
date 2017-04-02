@@ -47,12 +47,12 @@ namespace MyLibrary {
             connection.Close();   
         }
 
-        public void delete(int id) {
+        public void delete(String id) {
             MySqlConnection connection = new MySqlConnection(conn);
             try {
                 connection.Open();
 
-                query = "DELETE Author WHERE authorID= " + id;
+                query = "DELETE Author WHERE authorID= '" + id + "'";
                 MySqlCommand command = new MySqlCommand(query, connection);
 
                 command.ExecuteNonQuery();
@@ -61,31 +61,6 @@ namespace MyLibrary {
                 Console.WriteLine(e.ToString());
             }
             connection.Close();
-        }
-
-        public Author searchByID(int id) {
-            Author author = null;
-            MySqlConnection connection = new MySqlConnection(conn);
-
-            try {
-                connection.Open();
-
-                query = "SELECT authorName, authorFamily FROM author WHERE authorID= " + id;
-                MySqlCommand command = new MySqlCommand(query, connection);
-                MySqlDataReader reader = command.ExecuteReader();
-
-                if (reader.Read()) {
-                    author = new Author();
-                    author.setAuthorID(Convert.ToInt32(reader["authorID"]));
-                    author.setAuthorName(reader["authorName"].ToString());
-                    author.setAuthorFamily(reader["authorFamily"].ToString());
-                }
-
-            } catch (Exception e) {
-                Console.WriteLine(e.ToString());
-            }
-
-            return author;
         }
 
         public List<Author> searchAll() {
@@ -118,8 +93,8 @@ namespace MyLibrary {
             return authors;
         }
 
-        public List<Author> searchAllByID(int id) {
-            List<Author> authors = null;
+ /*       public List<Book> searchByID(String id) {
+            List<Book> books = null;
             MySqlConnection connection = new MySqlConnection(conn);
 
             try {
@@ -131,22 +106,24 @@ namespace MyLibrary {
 
                 MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataReader reader = command.ExecuteReader();
-                authors = new List<Author>();
+                books = new List<Book>();
 
                 while (reader.Read()) {
                     Book book = new Book();
-                    book.setBookID(reader.GetInt32("bookID"));
+                    book.setBookID(reader.GetString("bookID"));
                     book.setBookName(reader.GetString("bookName"));
                     book.setYear(reader.GetInt32("bookYear"));
-                    book.setAuthorID(id);
-                    book.setGenreID(reader.GetInt32("fkGenre"));
+                    book.setAuthorID(reader.GetString("fkAuthor"));
+                    book.setGenreID(reader.GetString("fkGenre"));
+
+                    books.Add(book);
                 }
 
             } catch (Exception e) {
                 Console.WriteLine(e.ToString());
             }
 
-            return authors;
-        }
+            return books;
+        }*/
     }
 }

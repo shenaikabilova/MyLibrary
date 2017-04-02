@@ -56,6 +56,7 @@
       <DependentUpon>AuthorView.cs</DependentUpon>
     </Compile>
     <Compile Include="Book.cs" />
+    <Compile Include="BookDAO.cs" />
     <Compile Include="BookDAOImpl.cs" />
     <Compile Include="BookView.cs">
       <SubType>Form</SubType>
@@ -86,6 +87,12 @@
     <Compile Include="SearchByAuthor.Designer.cs">
       <DependentUpon>SearchByAuthor.cs</DependentUpon>
     </Compile>
+    <Compile Include="SearchByGenre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SearchByGenre.Designer.cs">
+      <DependentUpon>SearchByGenre.cs</DependentUpon>
+    </Compile>
     <Compile Include="SearchResult.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +122,9 @@
     </Compile>
     <EmbeddedResource Include="SearchByAuthor.resx">
       <DependentUpon>SearchByAuthor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchByGenre.resx">
+      <DependentUpon>SearchByGenre.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SearchResult.resx">
       <DependentUpon>SearchResult.cs</DependentUpon>

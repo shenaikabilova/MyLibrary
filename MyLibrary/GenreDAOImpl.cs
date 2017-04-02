@@ -43,12 +43,12 @@ namespace MyLibrary {
             connection.Close();
         }
 
-        public void delete(int id) {
+        public void delete(String id) {
             MySqlConnection connection = new MySqlConnection(conn);
             try {
                 connection.Open();
 
-                query = "DELETE Book WHERE authorID= " + id;
+                query = "DELETE Book WHERE authorID= '" + id +"'";
                 MySqlCommand command = new MySqlCommand(query, connection);
 
                 command.ExecuteNonQuery();
@@ -59,51 +59,31 @@ namespace MyLibrary {
             connection.Close();
         }
 
-        public Genre searchByID(int id) {
-            Genre genre = null; ;
-            MySqlConnection connection = new MySqlConnection(conn);
-
-            try {
-                connection.Open();
-
-                query = "SELECT genreName FROM genre WHERE bookID= " + id;
-                MySqlCommand command = new MySqlCommand(query, connection);
-                MySqlDataReader reader = command.ExecuteReader();
-
-                if (reader.Read()) {
-                    genre = new Genre();
-                    genre.setGenre(reader["genreName"].ToString());
-                }
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-
-            return genre;
-        }
-
-        public List<Genre> searchAll() {
+        public List<Genre> searchAll()
+        {
             List<Genre> genres = null;
             MySqlConnection connection = new MySqlConnection(conn);
 
-            try {
+            try
+            {
                 connection.Open();
 
+                //  query = "SELECT book.bookID, book.bookName, book.bookYear, book.bookTimeRead from book join author on book.fkAuthor = author.authorID join genre on book.fkGenre = genre.genreID where author.authorID = ";
                 query = "SELECT genreID, genreName FROM genre";
                 MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataReader reader = command.ExecuteReader();
-
                 genres = new List<Genre>();
 
-                while (reader.Read()) {
+                while (reader.Read())
+                {
                     Genre genre = new Genre();
                     genre.setGenreID(reader.GetInt32("genreID"));
-                    genre.setGenre(reader["genreName"].ToString());
-
+                    genre.setGenre(reader.GetString("genreName"));
+                    
                     genres.Add(genre);
                 }
+
+                return genres;
             }
             catch (Exception e)
             {
@@ -111,10 +91,6 @@ namespace MyLibrary {
             }
 
             return genres;
-        }
-
-        public List<Genre> searchAllByID(int id) {
-            return null;
         }
     }
 }
